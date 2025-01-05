@@ -13,14 +13,17 @@ public:
     // Destructor
     ~GPIO();
 
-    // Set the pin HIGH or LOW
+    // Configure the pin as input or output
+    void configure(bool output);
+
+    // Write a digital value to the pin (HIGH or LOW)
     void write(bool value);
 
-    // Read the state of the pin
-    bool read();
+    // Read a digital value from the pin (HIGH or LOW)
+    bool readDigital();
 
-    // Blink the pin (for testing purposes)
-    void blink(int durationMs, int intervalMs);
+    // Read an analog value from an ADC channel (0-1023 range for MCP3008)
+    int readAnalog(int channel, int spiChannel = 0); // channel: ADC channel, spiChannel: SPI bus
 };
 
 #endif // GPIO_H
