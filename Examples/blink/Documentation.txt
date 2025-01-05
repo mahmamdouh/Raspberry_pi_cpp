@@ -1,0 +1,38 @@
+Since the Raspberry Pi does not have built-in analog input pins, you will need an external ADC (Analog-to-Digital Converter) to read analog signals. For simplicity, I will assume the use of a common ADC, such as the MCP3008. The analog reading function will include an implementation to communicate with the ADC using SPI.
+
+
+Updated Library Structure
+- GPIO.h: Header file for the GPIO class.
+- GPIO.cpp: Implementation of the GPIO class.
+- main.cpp: Main program that uses the GPIO library.
+
+Features of the Updated Library
+1- Generic Configuration:
+
+	Pins can be configured as input or output using the configure(bool output) method.
+
+2- Digital Read and Write:
+
+	write(bool value): Writes HIGH or LOW to a pin configured as output.
+	readDigital(): Reads HIGH or LOW from a pin configured as input.
+
+3- Analog Reading:
+
+	readAnalog(int channel, int spiChannel = 0): Reads an analog value (0-1023) from an external ADC (e.g., 	MCP3008) over SPI.
+
+Compile the program: g++ -o gpio_program main.cpp GPIO.cpp -lpigpio -lrt
+
+Run the program with root privileges (needed for pigpio): sudo ./gpio_program
+
+
+
+Hardware Setup
+Digital Input/Output:
+
+Connect an LED with a resistor to the GPIO pin (e.g., GPIO 17).
+Connect a push button to another GPIO pin (e.g., GPIO 18).
+Analog Input:
+
+Use an MCP3008 ADC chip.
+Connect its SPI pins (MOSI, MISO, CLK, CS) to the Raspberry Pi's SPI pins.
+

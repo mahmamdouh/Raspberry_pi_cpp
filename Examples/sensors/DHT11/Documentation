@@ -1,0 +1,70 @@
+Functions for the DHT11 Module
+The DHT11 module will provide:
+
+    - Constructor to initialize the sensor (with the GPIO pin number).
+    - read() to get the temperature and humidity values from the sensor.
+    - Error handling for timeout or checksum issues.
+    - A helper function to parse the data from the sensor.
+
+Library Structure
+
+    - DHT11.h: Header file for the DHT11 class.
+    - DHT11.cpp: Implementation of the DHT11 class.
+    - main.cpp: Main program that uses the DHT11 library.
+
+
+
+
+Explanation
+1- Start Signal:
+    The program sends a low signal for at least 18ms, followed by a high signal for 20–40µs.
+
+2- Sensor Response:
+    The DHT11 pulls the line low for 80µs and then high for another 80µs to indicate readiness.
+
+3- Data Transmission:
+    The sensor sends 40 bits (5 bytes). Each bit starts with a LOW signal followed by a HIGH signal:
+        - A 0-bit HIGH signal is ~26–28µs.
+        - A 1-bit HIGH signal is ~70µs.
+
+Checksum:
+    The last byte is the checksum. It must match the sum of the first four bytes.
+
+Reading Values:
+    - Humidity is represented by the first two bytes.
+    - Temperature is represented by the next two bytes.
+
+
+
+Compile the program: g++ -o gpio_program main.cpp GPIO.cpp -lpigpio -lrt
+
+Run the program with root privileges (needed for pigpio): sudo ./gpio_program
+
+===========================
+build : g++ -o dht11_program Examples/sensors/DHT11/main.cpp Examples/sensors/DHT11/DHT11.cpp Examples/blink/GPIO.cpp -IExamples/blink -lpigpio -lrt
+
+Examples/sensors/DHT11/main.cpp: Main program.
+Examples/sensors/DHT11/DHT11.cpp: DHT11 implementation file.
+Examples/blink/GPIO.cpp: GPIO implementation file.
+-IExamples/blink: Adds Examples/blink as an include directory so the compiler can locate GPIO.h.
+-lpigpio -lrt: Links the necessary libraries.
+
+
+
+compilation from examples folder 
+
+>> cd Examples
+>> g++ -o dht11_program sensors/DHT11/main.cpp sensors/DHT11/DHT11.cpp blink/GPIO.cpp -Iblink -lpigpio -lrt
+>> sudo ./dht11_program
+
+
+===========================
+
+
+Hardware Setup
+Connect the DHT11 to the Raspberry Pi:
+
+VCC → 5V
+GND → GND
+Data → GPIO pin (e.g., GPIO 4)
+Use a 10kΩ pull-up resistor between VCC and Data.
