@@ -44,7 +44,7 @@ std::pair<float, float> DHT11::read() {
     if (!waitForSignal(false, 80)) {
         throw std::runtime_error("DHT11 failed to respond (no LOW signal).");
     }
-    if (!waitForSignal(true, 80)) {
+    if (!waitForSignal(true, 90)) {
         throw std::runtime_error("DHT11 failed to respond (no HIGH signal).");
     }
 
@@ -86,7 +86,7 @@ std::pair<float, float> DHT11::read() {
 void DHT11::printValues() {
     try {
         auto [humidity, temperature] = read();
-        std::cout << "Humidity: " << humidity << "%, Temperature: " << temperature << "°C" << std::endl;
+        std::cout << "Humidity: " << humidity << "%, Temperature: " << temperature << "�C" << std::endl;
     } catch (const std::exception &e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }

@@ -1,12 +1,11 @@
-#include "../../blink/GPIO.h" // GPIO header relative to the main.cpp location
-
+#include "DHT11.h"
 #include <iostream>
 #include <thread> // For delays
 
 int main() {
     try {
         // Initialize DHT11 sensor on GPIO pin 4
-        DHT11 dht11(4);
+        DHT11 dht11(27);
 
         // Read and print temperature and humidity every 2 seconds
         while (true) {

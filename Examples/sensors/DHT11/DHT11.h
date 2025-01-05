@@ -1,8 +1,7 @@
 #ifndef DHT11_H
 #define DHT11_H
 
-#include "../../blink/GPIO.h" // Update the include path for GPIO
-
+#include "GPIO.h"
 #include <stdexcept> // For exception handling
 #include <utility>   // For std::pair
 
